@@ -537,12 +537,13 @@ public class MapleMonster extends AbstractLoadedMapleLife {
         if (highestPartyDamager) playerExp += YamlConfig.config.server.EXP_SPLIT_MVP_MOD;
         
         playerExp *= exp;
-        float bonusExp = partyBonusMod * playerExp;
 
         if(CustomMapExperience.HasCustomExpValue(map))
         {
             playerExp *= CustomMapExperience.GetCustomExpMultiplier(map);
         }
+
+        float bonusExp = partyBonusMod * playerExp;
         
         this.giveExpToCharacter(chr, playerExp, bonusExp, whiteExpGain, hasPartySharers);
         giveFamilyRep(chr.getFamilyEntry());
