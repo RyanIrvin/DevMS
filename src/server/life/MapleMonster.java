@@ -31,6 +31,7 @@ import client.SkillFactory;
 import client.status.MonsterStatus;
 import client.status.MonsterStatusEffect;
 import config.YamlConfig;
+import constants.game.CustomMapExperience;
 import constants.skills.Crusader;
 import constants.skills.FPMage;
 import constants.skills.Hermit;
@@ -532,10 +533,16 @@ public class MapleMonster extends AbstractLoadedMapleLife {
     
     private void distributePlayerExperience(MapleCharacter chr, float exp, float partyBonusMod, int totalPartyLevel, boolean highestPartyDamager, boolean whiteExpGain, boolean hasPartySharers) {
         float playerExp = (YamlConfig.config.server.EXP_SPLIT_COMMON_MOD * chr.getLevel()) / totalPartyLevel;
+        int map = chr.getMapId();
         if (highestPartyDamager) playerExp += YamlConfig.config.server.EXP_SPLIT_MVP_MOD;
         
         playerExp *= exp;
         float bonusExp = partyBonusMod * playerExp;
+
+        if(CustomMapExperience.HasCustomExpValue(map))
+        {
+            playerExp *= CustomMapExperience.GetCustomExpMultiplier(map);
+        }
         
         this.giveExpToCharacter(chr, playerExp, bonusExp, whiteExpGain, hasPartySharers);
         giveFamilyRep(chr.getFamilyEntry());
