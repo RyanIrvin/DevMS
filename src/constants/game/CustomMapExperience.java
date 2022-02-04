@@ -5,17 +5,12 @@ import java.util.HashMap;
 public final class CustomMapExperience
 {
     //Applies experience multiplier to MapID
-    public static final HashMap<Integer, Integer> CUSTOM_MAP_EXPERIENCE = new HashMap<Integer, Integer>() {{
-        put(50000, 20);
+    private static final HashMap<Integer, Float> CUSTOM_MAP_EXPERIENCE = new HashMap<Integer, Float>() {{
+        put(50000, 20.0f);
     }};
 
-    public static boolean HasCustomExpValue(int mapId)
+    public static Float GetCustomExpMultiplier(int mapId)
     {
-        return CUSTOM_MAP_EXPERIENCE.containsKey(mapId);
-    }
-
-    public static int GetCustomExpMultiplier(int mapId)
-    {
-        return CUSTOM_MAP_EXPERIENCE.get(mapId);
+        return CUSTOM_MAP_EXPERIENCE.containsKey(mapId)? CUSTOM_MAP_EXPERIENCE.get(mapId) : 1.0f;
     }
 }
