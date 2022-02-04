@@ -31,6 +31,7 @@ import client.SkillFactory;
 import client.status.MonsterStatus;
 import client.status.MonsterStatusEffect;
 import config.YamlConfig;
+import constants.game.CustomMapExperience;
 import constants.skills.Crusader;
 import constants.skills.FPMage;
 import constants.skills.Hermit;
@@ -535,6 +536,9 @@ public class MapleMonster extends AbstractLoadedMapleLife {
         if (highestPartyDamager) playerExp += YamlConfig.config.server.EXP_SPLIT_MVP_MOD;
         
         playerExp *= exp;
+
+        playerExp *= CustomMapExperience.GetCustomExpMultiplier(chr.getMapId());
+
         float bonusExp = partyBonusMod * playerExp;
         
         this.giveExpToCharacter(chr, playerExp, bonusExp, whiteExpGain, hasPartySharers);
